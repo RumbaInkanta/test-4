@@ -29,7 +29,8 @@ for (let i = 0; i < excel.length; i++) {
 
 function current(event) {
     for (let i = 0; i < excel.length; i++) {
-        excel[i].classList.remove('current')//снимаем выделение
+        excel[i].classList.remove('current')
+        excel[i].classList.remove('step')//снимаем выделение
     }
     current = event.target
     current.classList.add('current')//выделяем элемент
@@ -48,5 +49,12 @@ function step(currentX, currentY) {
                 document.querySelector('[posX="' + (+currentX + 2) + '"][posY="' + (+currentY - 1) + '"]'),
                 document.querySelector('[posX="' + (+currentX - 2) + '"][posY="' + (+currentY + 1) + '"]'),
                 document.querySelector('[posX="' + (+currentX - 2) + '"][posY="' + (+currentY - 1) + '"]')]
-    console.log(vars)
+    
+    for (let i = vars.length - 1; i >= 0; i--) { //с конца для избежания ошибок после null
+        if (!vars[i]) {
+            vars.splice(i,1)//убираем лишнее
+        }
+    }
+   
+    vars.forEach(el => el.classList.add('step'))
 }
